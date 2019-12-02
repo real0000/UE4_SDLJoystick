@@ -100,9 +100,11 @@ void ISDL2Input::SendControllerEvents()
 
 				if( 0 != (l_Event.jhat.value & SDL_HAT_LEFT) ) m_MessageHandler->OnControllerAnalog(FSDL2InputKeyNames::SDL2Controller_Hat[l_HatIdx * 2], l_Event.jhat.which, -1.0f);
 				else if( 0 != (l_Event.jhat.value & SDL_HAT_RIGHT) ) m_MessageHandler->OnControllerAnalog(FSDL2InputKeyNames::SDL2Controller_Hat[l_HatIdx * 2], l_Event.jhat.which, 1.0f);
+				else m_MessageHandler->OnControllerAnalog(FSDL2InputKeyNames::SDL2Controller_Hat[l_HatIdx * 2], l_Event.jhat.which, 0.0f);
 
 				if( 0 != (l_Event.jhat.value & SDL_HAT_UP) ) m_MessageHandler->OnControllerAnalog(FSDL2InputKeyNames::SDL2Controller_Hat[l_HatIdx * 2 + 1], l_Event.jhat.which, 1.0f);
 				else if( 0 != (l_Event.jhat.value & SDL_HAT_DOWN) ) m_MessageHandler->OnControllerAnalog(FSDL2InputKeyNames::SDL2Controller_Hat[l_HatIdx * 2 + 1], l_Event.jhat.which, -1.0f);
+				else m_MessageHandler->OnControllerAnalog(FSDL2InputKeyNames::SDL2Controller_Hat[l_HatIdx * 2 + 1], l_Event.jhat.which, 0.0f);
 				}break;
 
 			case SDL_JOYBUTTONDOWN:{
