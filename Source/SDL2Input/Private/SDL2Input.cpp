@@ -15,6 +15,7 @@
 //
 // ISDL2Input
 //
+#define JOYSTICK_DEADZONE 4096
 ISDL2Input::ISDL2Input(const TSharedRef<FGenericApplicationMessageHandler>& InMessageHandler)
 	: m_MessageHandler(InMessageHandler)
 {
@@ -35,6 +36,8 @@ ISDL2Input::ISDL2Input(const TSharedRef<FGenericApplicationMessageHandler>& InMe
 	EKeys::AddKey(FKeyDetails(FSDL2InputKeys::SDL2Controller_Axis[1], LOCTEXT("SDL2Controller_Axis2", "SDL2Controller Axis 2"), FKeyDetails::GamepadKey, NAME_SDL2Controller));
 	EKeys::AddKey(FKeyDetails(FSDL2InputKeys::SDL2Controller_Axis[2], LOCTEXT("SDL2Controller_Axis3", "SDL2Controller Axis 3"), FKeyDetails::GamepadKey, NAME_SDL2Controller));
 	EKeys::AddKey(FKeyDetails(FSDL2InputKeys::SDL2Controller_Axis[3], LOCTEXT("SDL2Controller_Axis4", "SDL2Controller Axis 4"), FKeyDetails::GamepadKey, NAME_SDL2Controller));
+	EKeys::AddKey(FKeyDetails(FSDL2InputKeys::SDL2Controller_Axis[4], LOCTEXT("SDL2Controller_Axis5", "SDL2Controller Axis 5"), FKeyDetails::GamepadKey, NAME_SDL2Controller));
+	EKeys::AddKey(FKeyDetails(FSDL2InputKeys::SDL2Controller_Axis[5], LOCTEXT("SDL2Controller_Axis6", "SDL2Controller Axis 6"), FKeyDetails::GamepadKey, NAME_SDL2Controller));
 	EKeys::AddKey(FKeyDetails(FSDL2InputKeys::SDL2Controller_Hat[0], LOCTEXT("SDL2Controller_Hat1_X", "SDL2Controller Hat 1 Axis-X"), FKeyDetails::GamepadKey, NAME_SDL2Controller));
 	EKeys::AddKey(FKeyDetails(FSDL2InputKeys::SDL2Controller_Hat[1], LOCTEXT("SDL2Controller_Hat1_Y", "SDL2Controller Hat 1 Axis-Y"), FKeyDetails::GamepadKey, NAME_SDL2Controller));
 	EKeys::AddKey(FKeyDetails(FSDL2InputKeys::SDL2Controller_Ball[0], LOCTEXT("SDL2Controller_Ball1", "SDL2Controller Ball 1 X Delta"), FKeyDetails::GamepadKey, NAME_SDL2Controller));
@@ -84,7 +87,7 @@ void ISDL2Input::SendControllerEvents()
 				int32 l_AxisIdx = l_Event.jaxis.axis;
 				if( l_AxisIdx >= MAX_SDL2_AXIS ) continue;
 
-				m_MessageHandler->OnControllerAnalog(FSDL2InputKeyNames::SDL2Controller_Axis[l_AxisIdx], l_Event.jaxis.which, l_Event.jaxis.value / 32768.0f);
+				m_MessageHandler->OnControllerAnalog(FSDL2InputKeyNames::SDL2Controller_Axis[l_AxisIdx], l_Event.jaxis.which, std::abs(l_Event.jaxis.value) <= JOYSTICK_DEADZONE ? 0.0f : l_Event.jaxis.value / 32768.0f);
 				}break;
 
 			case SDL_JOYBALLMOTION:
@@ -113,15 +116,11 @@ void ISDL2Input::SendControllerEvents()
 				int32 l_BtnIdx = l_Event.jbutton.button;
 				if( l_BtnIdx >= MAX_SDL2_BUTTON ) continue;
 
-				m_MessageHandler->OnControllerButtonReleased(FSDL2InputKeyNames::SDL2Controller_Button[l_BtnIdx], l_Event.jbutton.which, false);	
+				m_MessageHandler->OnControllerButtonReleased(FSDL2InputKeyNames::SDL2Controller_Button[l_BtnIdx], l_Event.jbutton.which, false);
 				}break;
 
-			case SDL_JOYDEVICEADDED:
-				break;
-
-			case SDL_JOYDEVICEREMOVED:
-				break;
-
+			//case SDL_JOYDEVICEADDED:	break;
+			//case SDL_JOYDEVICEREMOVED:break;
 			default:break;
 		}
 	}

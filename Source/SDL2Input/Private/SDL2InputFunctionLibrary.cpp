@@ -6,7 +6,9 @@ const FGamepadKeyNames::Type FSDL2InputKeyNames::SDL2Controller_Axis[] = {
 	"SDL2Controller_Axis1",
 	"SDL2Controller_Axis2",
 	"SDL2Controller_Axis3",
-	"SDL2Controller_Axis4"};
+	"SDL2Controller_Axis4",
+	"SDL2Controller_Axis5",
+	"SDL2Controller_Axis6"};
 	
 const FGamepadKeyNames::Type FSDL2InputKeyNames::SDL2Controller_Hat[] = {
 	"SDL2Controller_Hat1_AxisX",
@@ -43,7 +45,9 @@ const FKey FSDL2InputKeys::SDL2Controller_Axis[] = {
 	FSDL2InputKeyNames::SDL2Controller_Axis[0],
 	FSDL2InputKeyNames::SDL2Controller_Axis[1],
 	FSDL2InputKeyNames::SDL2Controller_Axis[2],
-	FSDL2InputKeyNames::SDL2Controller_Axis[3]};
+	FSDL2InputKeyNames::SDL2Controller_Axis[3],
+	FSDL2InputKeyNames::SDL2Controller_Axis[4],
+	FSDL2InputKeyNames::SDL2Controller_Axis[5]};
 
 const FKey FSDL2InputKeys::SDL2Controller_Hat[] = {
 	FSDL2InputKeyNames::SDL2Controller_Hat[0],

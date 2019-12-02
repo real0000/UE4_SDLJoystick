@@ -8,7 +8,7 @@
 #include "GenericPlatform/GenericApplicationMessageHandler.h"
 #include "SDL2InputFunctionLibrary.generated.h"
 
-#define MAX_SDL2_AXIS 4
+#define MAX_SDL2_AXIS 6
 #define MAX_SDL2_HAT 1
 #define MAX_SDL2_BALL 2
 #define MAX_SDL2_BUTTON 20
